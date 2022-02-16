@@ -12,6 +12,11 @@ import java.util.Collection;
 public interface CompetenceRepository extends BaseRepository<Competence> {
 
     //may not work
-    @Query("FROM Competence c WHERE c.candidate.candidateId = :candidateId ORDER BY c.competenceName")
-    Collection<Competence> findAllByCandidateId(@Param("candidateId") Long candidateId);
+    /*
+    * @Query("select t from Test t join User u where u.username = :username")
+List<Test> findAllByUsername(@Param("username")String username);
+    * */
+    //@Query("FROM Competence c WHERE c.candidate.candidateId = :candidateId ORDER BY c.competenceName")
+    @Query("select competence from Competence competence join Candidate candidate where candidate.id = :id")
+    Collection<Competence> findAllByCandidateId(@Param("id") Long id);
 }

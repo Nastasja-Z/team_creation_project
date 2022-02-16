@@ -6,10 +6,13 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     private String username;
     private String password;
+
+    @Transient
+    private Boolean enabled;
 
     @ManyToMany(
             cascade = CascadeType.ALL,
@@ -43,6 +46,14 @@ public class User extends BaseEntity{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Set<Project> getCurrentProjects() {
