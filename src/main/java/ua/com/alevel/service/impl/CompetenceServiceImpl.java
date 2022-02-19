@@ -53,7 +53,7 @@ public class CompetenceServiceImpl implements CompetenceService {
 
     @Override
     public Collection<Competence> findAllByCandidateId(Long candidateId) {
-        return competenceRepository.findByCandidates_Id(candidateId);
+        return competenceRepository.findByCandidates_Candidate(candidateRepository.findById(candidateId).get());
     }
 
     private boolean checkByExist(Long id) {

@@ -9,14 +9,14 @@ import ua.com.alevel.persistence.entity.Project;
 import ua.com.alevel.service.IndicatorService;
 import ua.com.alevel.service.ProjectService;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
 
-    //ADD FACADE
-
+    //ADD FACADES !!!!!!!!!!!
     private final ProjectService projectService;
-
     private final IndicatorService indicatorService;
 
     private final IndicatorProjectFacade indicatorProjectFacade ;
@@ -74,6 +74,7 @@ public class ProjectController {
 
     @GetMapping("/delete/{id}")
     public String deleteProject(@PathVariable Long id) {
+        indicatorProjectFacade.deleteByProjectId(id);
         projectService.delete(id);
         return "redirect:/projects";
     }

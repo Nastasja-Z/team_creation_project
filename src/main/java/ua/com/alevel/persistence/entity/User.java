@@ -27,7 +27,7 @@ public class User extends BaseEntity {
                     CascadeType.MERGE,
                     CascadeType.REFRESH,
                     CascadeType.PERSIST},
-            targetEntity = Candidate.class)
+            targetEntity = Project.class)
     @JoinTable(name = "users_projects",
             inverseJoinColumns = @JoinColumn(name = "project_id"),
             joinColumns = @JoinColumn(name = "user_id"),

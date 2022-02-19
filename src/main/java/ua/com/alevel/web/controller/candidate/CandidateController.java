@@ -3,6 +3,7 @@ package ua.com.alevel.web.controller.candidate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ua.com.alevel.facade.CompetenceCandidateFacade;
 import ua.com.alevel.persistence.entity.Candidate;
 import ua.com.alevel.persistence.entity.Competence;
 import ua.com.alevel.service.CandidateService;
@@ -12,13 +13,16 @@ import ua.com.alevel.service.CompetenceService;
 @RequestMapping("/candidates")
 public class CandidateController {
 
+    //CONVERT TO FACADES
     private final CandidateService candidateService;
-
     private final CompetenceService competenceService;
 
-    public CandidateController(CandidateService candidateService, CompetenceService competenceService) {
+    private final CompetenceCandidateFacade competenceCandidateFacade ;
+
+    public CandidateController(CandidateService candidateService, CompetenceService competenceService, CompetenceCandidateFacade competenceCandidateFacade) {
         this.candidateService = candidateService;
         this.competenceService = competenceService;
+        this.competenceCandidateFacade = competenceCandidateFacade;
     }
 
     @GetMapping
@@ -39,7 +43,7 @@ public class CandidateController {
     @GetMapping("/getCandidateDetails/{candidateId}")
     public String getCandidateDetails(Model model, @PathVariable("candidateId") Long candidateId) {
         model.addAttribute("candidate", candidateService.findById(candidateId));
-        model.addAttribute("competences", competenceService.findAllByCandidateId(candidateId));
+        model.addAttribute("competences", competenceCandidateFacade.findAllByCandidateId(candidateId));
         return "pages/candidates/candidate_details";
     }
 
@@ -64,6 +68,7 @@ public class CandidateController {
 
     @GetMapping("/delete/{id}")
     public String deleteCandidate(@PathVariable Long id) {
+        competenceCandidateFacade.deleteByCandidateId(id);
         candidateService.delete(id);
         return "redirect:/candidates";
     }
@@ -72,6 +77,8 @@ public class CandidateController {
 
     @GetMapping("/deleteCompetence/{id}")
     public String deleteCompetence(@PathVariable Long id) {
+        //TODO: delete from references table, NOT from origin
+        //it is false, remake below variant to right
         competenceService.delete(id);
         return "redirect:/candidates";  //redirect to candidates/candidate_details ???
     }

@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>New Project</title>
 </head>
 <body>
 
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    Create Project
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/projects/new}" method="post" th:object="${project}">
+                        <div class="form-group">
+                            <label for="name">Name of project</label>
+                            <input type="text" class="form-control" id="name" placeholder="Please enter name"
+                                   th:field="*{nameOfProject}">
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Budget</label>
+                            <input type="number" class="form-control" id="budget" placeholder="Please enter budget"
+                                   th:field="*{budget}">
+                        </div>
+                        <div class="form-group">
+                            <!--                            can add min="2022-02-29" and max and value-->
+                            <label for="start"> Start of the project</label>
+                            <input type="date" id="start" class="form-control" th:field="*{startOfProject}">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="end"> End of the project</label>
+                            <input type="date" id="end" class="form-control" th:field="*{endOfProject}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -24,8 +24,8 @@
                             <th>id</th>
                             <th>name_first</th>
                             <th>name_last</th>
-                            <th>employment</th> <!--add to details, not here-->
-                            <th>add competence</th> <!--add to details, not here, and with MODULE-->
+                            <th>employment</th> <!-- TODO: add to details, not here-->
+<!--                            <th>add competence</th> &lt;!&ndash; TODO: add to details, not here, and with MODULE&ndash;&gt;-->
                             <th>details</th>
                             <th>delete</th>
                         </tr>
@@ -37,9 +37,9 @@
                             <td th:text="${candidate.nameOfCandidate}"></td>
                             <td th:text="${candidate.surnameOfCandidate}"></td>
                             <td th:text="${candidate.employment}"></td>
-                            <td>
+                           <!-- <td>
                                 <a th:href="@{/candidates/newCompetence}" type="button" class="btn btn-default">Add Competence </a>
-                            </td>
+                            </td>-->
                             <td>
                                 <a class="btn btn-primary" th:href="@{'/candidates/getCandidateDetails/' + ${candidate.getId()}}">Details</a>
                             </td>

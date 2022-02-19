@@ -1,4 +1,8 @@
-package ua.com.alevel.persistence.entity;
+package ua.com.alevel.persistence.entity.references;
+
+import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.persistence.entity.Indicator;
+import ua.com.alevel.persistence.entity.Project;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -8,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "indicators_projects")
-public class IndicatorProject extends BaseEntity{
+public class IndicatorProject extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "indicator_id")

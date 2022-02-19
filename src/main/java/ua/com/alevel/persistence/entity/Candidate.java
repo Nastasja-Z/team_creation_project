@@ -1,5 +1,7 @@
 package ua.com.alevel.persistence.entity;
 
+import ua.com.alevel.persistence.entity.references.CompetenceCandidate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -13,20 +15,16 @@ public class Candidate extends BaseEntity {
     private String surnameOfCandidate;
     private BigDecimal salaryProHour;
     private Integer employment; // ограничение часов в сутках или ??
+    //add date of birth
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "candidate",
             cascade = {
                     CascadeType.DETACH,
                     CascadeType.MERGE,
                     CascadeType.REFRESH,
-                    CascadeType.PERSIST},
-            targetEntity = Competence.class)
-    @JoinTable(name = "competences_candidates",
-            joinColumns = @JoinColumn(name = "candidate_id"),
-            inverseJoinColumns = @JoinColumn(name = "competence_id"),
-            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
-            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
-    private Set<Competence> competences;
+                    CascadeType.PERSIST}
+    )
+    private Set<CompetenceCandidate> competences;
 
     public String getNameOfCandidate() {
         return nameOfCandidate;
@@ -60,11 +58,11 @@ public class Candidate extends BaseEntity {
         this.employment = employment;
     }
 
-    public Set<Competence> getCompetences() {
+    public Set<CompetenceCandidate> getCompetences() {
         return competences;
     }
 
-    public void setCompetences(Set<Competence> competences) {
+    public void setCompetences(Set<CompetenceCandidate> competences) {
         this.competences = competences;
     }
 

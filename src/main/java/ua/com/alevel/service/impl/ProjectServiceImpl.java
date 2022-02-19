@@ -19,6 +19,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void create(Project entity) {
+        System.out.println("entity.getStartOfProject() = " + entity.getStartOfProject());
         projectRepository.save(entity);
     }
 

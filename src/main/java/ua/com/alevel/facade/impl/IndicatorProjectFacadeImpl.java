@@ -2,7 +2,7 @@ package ua.com.alevel.facade.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.facade.IndicatorProjectFacade;
-import ua.com.alevel.persistence.entity.IndicatorProject;
+import ua.com.alevel.persistence.entity.references.IndicatorProject;
 import ua.com.alevel.service.IndicatorProjectService;
 import ua.com.alevel.service.IndicatorService;
 import ua.com.alevel.service.ProjectService;
@@ -48,8 +48,17 @@ public class IndicatorProjectFacadeImpl implements IndicatorProjectFacade {
     public List<IndicatorProjectResponseDto> findAllByProjectId(Long id) {
         List<IndicatorProjectResponseDto> dtos = new ArrayList<>();
         indicatorService.findAllByProjectId(id).forEach(x->{
-            dtos.add(new IndicatorProjectResponseDto(x, indicatorProjectService.findByProjectAndIndicator(projectService.findById(id).getId(),x.getId())));
+            dtos.add(new IndicatorProjectResponseDto(x,
+                    indicatorProjectService
+                            .findByProjectAndIndicator(projectService
+                                    .findById(id)
+                                    .getId(),x.getId())));
         });
         return dtos;
+    }
+
+    @Override
+    public void deleteByProjectId(Long id) {
+        indicatorProjectService.deleteAllByProject(id);
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import ua.com.alevel.persistence.entity.Candidate;
 import ua.com.alevel.persistence.entity.Competence;
 
 import java.util.Collection;
@@ -11,7 +12,7 @@ import java.util.Collection;
 @Repository
 public interface CompetenceRepository extends BaseRepository<Competence> {
 
-    Collection<Competence> findByCandidates_Id(/*@Param("id") */Long id);
+    Collection<Competence> findByCandidates_Candidate(Candidate candidate);
 
     //@Query("select competence from Competence competence join Candidate candidate where candidate.id = :id")
     //Collection<Competence> findAllByCandidateId(@Param("id") Long id);

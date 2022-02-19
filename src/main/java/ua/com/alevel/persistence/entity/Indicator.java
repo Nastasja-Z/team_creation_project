@@ -1,5 +1,7 @@
 package ua.com.alevel.persistence.entity;
 
+import ua.com.alevel.persistence.entity.references.IndicatorProject;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -13,7 +15,6 @@ public class Indicator extends BaseEntity {
 
     @OneToMany(mappedBy = "indicator")
     private Set<IndicatorProject> projects;
-
 
     public String getIndicatorName() {
         return indicatorName;
@@ -45,34 +46,17 @@ public class Indicator extends BaseEntity {
         return Objects.hash(super.hashCode(), indicatorName, projects);
     }
 
-
-
-
-       /*public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }*/
-
-
-    /*@ManyToOne
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;*/
-
  /*   @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.DETACH,
                     CascadeType.MERGE,
                     CascadeType.REFRESH,
                     CascadeType.PERSIST},
-            targetEntity = Candidate.class)
+            targetEntity = Project.class)
     @JoinTable(name = "indicators_projects",
             inverseJoinColumns = @JoinColumn(name = "project_id"),
             joinColumns = @JoinColumn(name = "indicator_id"),
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<Project> projects;*/
-    //private Integer level;
 }

@@ -1,7 +1,7 @@
 package ua.com.alevel.service.impl;
 
 import org.springframework.stereotype.Service;
-import ua.com.alevel.persistence.entity.IndicatorProject;
+import ua.com.alevel.persistence.entity.references.IndicatorProject;
 import ua.com.alevel.persistence.repository.IndicatorProjectRepository;
 import ua.com.alevel.persistence.repository.IndicatorRepository;
 import ua.com.alevel.persistence.repository.ProjectRepository;
@@ -48,10 +48,10 @@ public class IndicatorProjectServiceImpl implements IndicatorProjectService {
         return indicatorProjectRepository.findAll();
     }
 
-    @Override
+    /*@Override
     public List<IndicatorProject> findAllByProject(Long id) {
         return (List<IndicatorProject>) indicatorProjectRepository.findAllByProject(projectRepository.findById(id).get());
-    }
+    }*/
 
     @Override
     public IndicatorProject findByProjectAndIndicator(Long projectId, Long indicatorId) {
@@ -59,5 +59,10 @@ public class IndicatorProjectServiceImpl implements IndicatorProjectService {
                 projectRepository.findById(projectId).get(),
                 indicatorRepository.findById(indicatorId).get()
         );
+    }
+
+    @Override
+    public void deleteAllByProject(Long id) {
+        indicatorProjectRepository.deleteByProject(id);
     }
 }

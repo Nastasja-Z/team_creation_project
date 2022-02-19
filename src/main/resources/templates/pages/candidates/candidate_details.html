@@ -17,10 +17,12 @@
                     Candidate Details
                 </div>
                 <div class="card-body">
+<!--                    TODO: convert from table to card-->
                     <table class="table table-sm table-hover">
                         <thead>
                         <tr>
                             <th>id</th>
+<!--                        TODO:    ADD RES & REQ FOR FULL NAME-->
                             <th>name_first</th>
                             <th>name_last</th>
                             <th>employment</th>
@@ -45,7 +47,6 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>id</th>
                                 <th>competence</th>
                                 <th>level</th>
                             </tr>
@@ -53,14 +54,13 @@
                             <tbody>
                             <tr th:each="competence,iter : ${competences}">
                                 <td th:text="${iter.count}"></td>
-                                <td th:text="${competence.id}"></td>
                                 <td th:text="${competence.competenceName}"></td>
                                 <td th:text="${competence.level}"></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
     </div>
