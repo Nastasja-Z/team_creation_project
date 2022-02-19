@@ -3,7 +3,6 @@ package ua.com.alevel.persistence.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -13,8 +12,21 @@ public class Project extends BaseEntity{
     @Column(name = "project_name")
     private String nameOfProject;
 
+    /*@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST},
+            targetEntity = Candidate.class)
+    @JoinTable(name = "indicators_projects",
+            inverseJoinColumns = @JoinColumn(name = "indicator_id"),
+            joinColumns = @JoinColumn(name = "project_id"),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))*/
+
     @OneToMany(mappedBy = "project")
-    private Set<Indicator> indicators;
+    private Set<IndicatorProject> indicators;
 
     @Column(nullable = false)
     private BigDecimal budget;
@@ -22,9 +34,19 @@ public class Project extends BaseEntity{
     @Column(name = "start_project")
     private Date startOfProject;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    /*@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST},
+            targetEntity = Candidate.class)
+    @JoinTable(name = "users_projects",
+            inverseJoinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "project_id"),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
+    private Set<User> users;*/
 
     @Column(name = "end_project") // nullable??
     private Date endOfProject;    // validate!!!
@@ -37,11 +59,11 @@ public class Project extends BaseEntity{
         this.nameOfProject = nameOfProject;
     }
 
-    public Set<Indicator> getIndicators() {
+    public Set<IndicatorProject> getIndicators() {
         return indicators;
     }
 
-    public void setIndicators(Set<Indicator> indicators) {
+    public void setIndicators(Set<IndicatorProject> indicators) {
         this.indicators = indicators;
     }
 
@@ -61,13 +83,13 @@ public class Project extends BaseEntity{
         this.startOfProject = startOfProject;
     }
 
-    public User getUser() {
-        return user;
+/*    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }*/
 
     public Date getEndOfProject() {
         return endOfProject;
@@ -77,17 +99,17 @@ public class Project extends BaseEntity{
         this.endOfProject = endOfProject;
     }
 
-    @Override
+   /* @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Project project = (Project) o;
-        return Objects.equals(nameOfProject, project.nameOfProject) && Objects.equals(indicators, project.indicators) && Objects.equals(budget, project.budget) && Objects.equals(startOfProject, project.startOfProject) && Objects.equals(user, project.user) && Objects.equals(endOfProject, project.endOfProject);
+        return Objects.equals(nameOfProject, project.nameOfProject) && Objects.equals(indicators, project.indicators) && Objects.equals(budget, project.budget) && Objects.equals(startOfProject, project.startOfProject) && Objects.equals(users, project.users) && Objects.equals(endOfProject, project.endOfProject);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), nameOfProject, indicators, budget, startOfProject, user, endOfProject);
-    }
+        return Objects.hash(super.hashCode(), nameOfProject, indicators, budget, startOfProject, users, endOfProject);
+    }*/
 }

@@ -3,12 +3,11 @@ package ua.com.alevel.web.controller.project;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ua.com.alevel.facade.IndicatorProjectFacade;
 import ua.com.alevel.persistence.entity.Indicator;
 import ua.com.alevel.persistence.entity.Project;
 import ua.com.alevel.service.IndicatorService;
 import ua.com.alevel.service.ProjectService;
-
-import java.util.Collection;
 
 @Controller
 @RequestMapping("/projects")
@@ -20,22 +19,26 @@ public class ProjectController {
 
     private final IndicatorService indicatorService;
 
-    public ProjectController(ProjectService projectService, IndicatorService indicatorService) {
+    private final IndicatorProjectFacade indicatorProjectFacade ;
+
+    public ProjectController(ProjectService projectService, IndicatorService indicatorService, IndicatorProjectFacade indicatorProjectFacade) {
         this.projectService = projectService;
         this.indicatorService = indicatorService;
+        this.indicatorProjectFacade = indicatorProjectFacade;
     }
 
+
+    //do i need it??????? maybe for main page to introduce some of our closed projects
     @GetMapping
     public String findAll(Model model) {
-        Collection<Project> projects = projectService.findAll();
-        model.addAttribute("projects", projects);
+        model.addAttribute("projects", projectService.findAll());
         return "pages/projects/projects_all";
     }
 
     @GetMapping("/getProjectDetails/{projectId}")
     public String getProjectDetails(Model model, @PathVariable("projectId") Long projectId) {
         model.addAttribute("project", projectService.findById(projectId));
-        model.addAttribute("indicators", indicatorService.findAllByProjectId(projectId));
+        model.addAttribute("indicators", indicatorProjectFacade.findAllByProjectId(projectId));
         return "pages/projects/project_details";
     }
 
@@ -83,7 +86,7 @@ public class ProjectController {
         return "redirect:/projects";
     }
 
-    @PostMapping("/newIndicator")
+    /*@PostMapping("/newIndicator")
     public String createIndicator(@ModelAttribute("indicator") Indicator indicator, @ModelAttribute("project") Project project) {
         indicator.setProject(project);
         indicatorService.create(indicator);
@@ -96,7 +99,7 @@ public class ProjectController {
         Collection<Project> projects = projectService.findAll();
         model.addAttribute("projects", projects);
         return "pages/projects/projects_new";
-    }
+    }*/
 
     @PostMapping("/updateIndicator")
     public String updateIndicator(@ModelAttribute("indicator") Indicator indicator) {

@@ -8,4 +8,6 @@ public interface CompetenceService extends BaseService<Competence> {
 
     Collection<Competence> findAllByCandidateId(Long candidateId);
 
+    //void deleteFromReference(Long id);
+
 }

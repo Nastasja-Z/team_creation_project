@@ -6,14 +6,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="main.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         a.nav-item.nav-link {
             color: white;
         }
-
-
     </style>
 </head>
 <body>
@@ -21,7 +23,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Main page</a>
+            <a class="navbar-brand" th:href="@{/main}">Main page</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -49,16 +51,26 @@
                             <li><a class="dropdown-item" th:href="@{/candidates}">List of candidates</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#">
+                            Register
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Login
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
 
-   <!-- <nav class="navbar navbar-dark bg-primary mt-2">
-        <a class="nav-item nav-link" th:href="@{/candidates}">candidates all</a>
-        <a class="nav-item nav-link" th:href="@{/candidates/new}">candidate new</a>
-    </nav>-->
+    <!-- <nav class="navbar navbar-dark bg-primary mt-2">
+         <a class="nav-item nav-link" th:href="@{/candidates}">candidates all</a>
+         <a class="nav-item nav-link" th:href="@{/candidates/new}">candidate new</a>
+     </nav>-->
 
     <section layout:fragment="content"></section>
 </div>
@@ -66,11 +78,15 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>
 </html>

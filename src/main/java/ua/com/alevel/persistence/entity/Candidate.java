@@ -7,18 +7,25 @@ import java.util.Set;
 
 @Entity
 @Table(name = "candidates")
-public class Candidate extends BaseEntity{
+public class Candidate extends BaseEntity {
 
     private String nameOfCandidate;
     private String surnameOfCandidate;
     private BigDecimal salaryProHour;
     private Integer employment; // ограничение часов в сутках или ??
 
-    @ManyToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "candidates"
-    )
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST},
+            targetEntity = Competence.class)
+    @JoinTable(name = "competences_candidates",
+            joinColumns = @JoinColumn(name = "candidate_id"),
+            inverseJoinColumns = @JoinColumn(name = "competence_id"),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<Competence> competences;
 
     public String getNameOfCandidate() {

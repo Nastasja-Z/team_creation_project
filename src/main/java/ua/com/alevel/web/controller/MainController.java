@@ -8,7 +8,7 @@ public class MainController {
 
 
 
-    @GetMapping
+    @GetMapping({"", "/main"})
     public String redirectToMainPage(){
         return "main";
     }

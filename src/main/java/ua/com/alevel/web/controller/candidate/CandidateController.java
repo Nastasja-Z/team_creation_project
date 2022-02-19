@@ -8,8 +8,6 @@ import ua.com.alevel.persistence.entity.Competence;
 import ua.com.alevel.service.CandidateService;
 import ua.com.alevel.service.CompetenceService;
 
-import java.util.Collection;
-
 @Controller
 @RequestMapping("/candidates")
 public class CandidateController {
@@ -25,8 +23,7 @@ public class CandidateController {
 
     @GetMapping
     public String findAll(Model model) {
-        Collection<Candidate> candidates = candidateService.findAll();
-        model.addAttribute("candidates", candidates);
+        model.addAttribute("candidates", candidateService.findAll());
         return "pages/candidates/candidates_all";
     }
 
@@ -55,6 +52,7 @@ public class CandidateController {
     @PostMapping("/new")
     public String createCandidate(@ModelAttribute("candidate") Candidate candidate) {
         candidateService.create(candidate);
+        //in the future to details to add new competence
         return "redirect:/candidates";
     }
 

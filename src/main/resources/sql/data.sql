@@ -10,6 +10,35 @@ values ('$2a$10$RYofohWktwl5xDkPm9FQQuwjubusMDz9rfO21tUWb1dB.41HRBq3C', 'admin')
        ('$c@"k`*rNw+*7ZJsYFjVhhjJ?K.%gRr{v?#?tGTL>,k%P4SU:$=m^8`>ug=S', 'HR'),
        ('$EmQ2L2T45gY87YRbjh8akCMk5VagsudGF2kQBzJGJhHJtpWJw5L4gEa4m9M', 'testuser');
 
+insert into roles_users (user_id, role_id)
+values ((select id from users where username = 'admin'), (select id from roles where name = 'ROLE_ADMIN')),
+       ((select id from users where username = 'testuser'), (select id from roles where name = 'ROLE_USER')),
+       ((select id from users where username = 'PM'), (select id from roles where name = 'ROLE_PM')),
+       ((select id from users where username = 'HR'), (select id from roles where name = 'ROLE_HR'));
+
+insert into projects(project_name, budget, start_project, end_project)
+values ('test1', 3000000, current_date, current_date),
+        ('test2', 5000000, current_date, current_date);
+
+insert into indicators (indicator_name)
+values ('test1'),
+       ('test2'),
+       ('test3'),
+       ('test4'),
+       ('test5'),
+       ('test6'),
+       ('test7'),
+       ('test8'),
+       ('test9');
+
+
+insert into indicators_projects(project_id, indicator_id, level)
+values ((select id from projects where project_name = 'test1'),(select id from indicators where indicator_name = 'test1'), 5),
+        ((select id from projects where project_name = 'test1'),(select id from indicators where indicator_name = 'test2'), 2),
+        ((select id from projects where project_name = 'test1'),(select id from indicators where indicator_name = 'test3'), 4),
+        ((select id from projects where project_name = 'test1'),(select id from indicators where indicator_name = 'test4'), 4),
+        ((select id from projects where project_name = 'test2'),(select id from indicators where indicator_name = 'test5'), 5);
+
 insert into candidates(name_of_candidate, surname_of_candidate, salary_pro_hour, employment)
 values  ('test1', 'test1', 11.00, 1),
         ('test2', 'test2', 12.00, 2),
@@ -20,30 +49,27 @@ values  ('test1', 'test1', 11.00, 1),
         ('test7', 'test7', 17.00, 7),
         ('test8', 'test8', 18.00, 8);
 
-insert into competences(competence_name, level)
-values ('test1', 1),
-       ('test2', 2),
-       ('test3', 3),
-       ('test4', 4),
-       ('test5', 5),
-       ('test6', 5),
-       ('test7', 4),
-       ('test8', 3),
-       ('test9', 2);
+--insert into competences(competence_name, level)
+--values ((select indicator_name from indicators where id = 1), 1),
+--       ((select indicator_name from indicators where id = 2), 2),
+--       ((select indicator_name from indicators where id = 3), 3),
+--       ((select indicator_name from indicators where id = 5), 5),
+--       ((select indicator_name from indicators where id = ), 4),
+--       ((select indicator_name from indicators where id = 4), 4),
+--       ((select indicator_name from indicators where id = 8), 5);
 
-insert into roles_users (user_id, role_id)
-values ((select id from users where username = 'admin'), (select id from roles where name = 'ROLE_ADMIN')),
-       ((select id from users where username = 'testuser'), (select id from roles where name = 'ROLE_USER')),
-       ((select id from users where username = 'PM'), (select id from roles where name = 'ROLE_PM')),
-       ((select id from users where username = 'HR'), (select id from roles where name = 'ROLE_HR'));
+--insert into competences_candidates(competence_id, candidate_id)
+--values ((select id from competences where competence_name = 'test1'),(select id from candidates where name_of_candidate = 'test1')),
+--       ((select id from competences where competence_name = 'test2'),(select id from candidates where name_of_candidate = 'test1')),
+--       ((select id from competences where competence_name = 'test2'),(select id from candidates where name_of_candidate = 'test2')),
+--       ((select id from competences where competence_name = 'test1'),(select id from candidates where name_of_candidate = 'test2')),
+--       ((select id from competences where competence_name = 'test2'),(select id from candidates where name_of_candidate = 'test3')),
+--       ((select id from competences where competence_name = 'test3'),(select id from candidates where name_of_candidate = 'test3')),
+--       ((select id from competences where competence_name = 'test5'),(select id from candidates where name_of_candidate = 'test1')),
+--       ((select id from competences where competence_name = 'test6'),(select id from candidates where name_of_candidate = 'test4')),
+--       ((select id from competences where competence_name = 'test4'),(select id from candidates where name_of_candidate = 'test5'));
 
-insert into competences_candidates(competence_id, candidate_id)
-values ((select id from competences where competence_name = 'test1'),(select id from candidates where name_of_candidate = 'test1')),
-       ((select id from competences where competence_name = 'test2'),(select id from candidates where name_of_candidate = 'test1')),
-       ((select id from competences where competence_name = 'test2'),(select id from candidates where name_of_candidate = 'test2')),
-       ((select id from competences where competence_name = 'test1'),(select id from candidates where name_of_candidate = 'test2')),
-       ((select id from competences where competence_name = 'test2'),(select id from candidates where name_of_candidate = 'test3')),
-       ((select id from competences where competence_name = 'test3'),(select id from candidates where name_of_candidate = 'test3')),
-       ((select id from competences where competence_name = 'test5'),(select id from candidates where name_of_candidate = 'test1')),
-       ((select id from competences where competence_name = 'test6'),(select id from candidates where name_of_candidate = 'test4')),
-       ((select id from competences where competence_name = 'test4'),(select id from candidates where name_of_candidate = 'test5'));
+--insert into users_projects(project_id, user_id)
+--values ((select id from projects where project_name = 'test1'), (select id from users where username = 'PM')),
+--        ((select id from projects where project_name = 'test1'), (select id from users where username = 'HR'));
+

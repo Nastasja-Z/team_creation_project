@@ -21,8 +21,19 @@ public class User extends BaseEntity {
     )
     private Set<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<Project> currentProjects;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST},
+            targetEntity = Candidate.class)
+    @JoinTable(name = "users_projects",
+            inverseJoinColumns = @JoinColumn(name = "project_id"),
+            joinColumns = @JoinColumn(name = "user_id"),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
+    private Set<Project> projects;
 
     public String getUsername() {
         return username;
@@ -56,12 +67,12 @@ public class User extends BaseEntity {
         this.enabled = enabled;
     }
 
-    public Set<Project> getCurrentProjects() {
-        return currentProjects;
+    public Set<Project> getProjects() {
+        return projects;
     }
 
-    public void setCurrentProjects(Set<Project> currentProjects) {
-        this.currentProjects = currentProjects;
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 
     @Override
@@ -70,11 +81,14 @@ public class User extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         User user = (User) o;
-        return Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles) && Objects.equals(currentProjects, user.currentProjects);
+        return Objects.equals(username, user.username)
+                && Objects.equals(password, user.password)
+                && Objects.equals(roles, user.roles)
+                && Objects.equals(projects, user.projects);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), username, password, roles, currentProjects);
+        return Objects.hash(super.hashCode(), username, password, roles, projects);
     }
 }

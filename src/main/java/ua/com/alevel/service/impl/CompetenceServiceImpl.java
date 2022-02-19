@@ -3,6 +3,7 @@ package ua.com.alevel.service.impl;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.exception.EntityNonExistsException;
 import ua.com.alevel.persistence.entity.Competence;
+import ua.com.alevel.persistence.repository.CandidateRepository;
 import ua.com.alevel.persistence.repository.CompetenceRepository;
 import ua.com.alevel.service.CompetenceService;
 
@@ -12,9 +13,14 @@ import java.util.Collection;
 public class CompetenceServiceImpl implements CompetenceService {
 
     private final CompetenceRepository competenceRepository;
+    private final CandidateRepository candidateRepository;
 
-    public CompetenceServiceImpl(CompetenceRepository competenceRepository) {
+    public CompetenceServiceImpl(
+            CompetenceRepository competenceRepository,
+            CandidateRepository candidateRepository
+    ) {
         this.competenceRepository = competenceRepository;
+        this.candidateRepository = candidateRepository;
     }
 
     @Override
@@ -47,7 +53,7 @@ public class CompetenceServiceImpl implements CompetenceService {
 
     @Override
     public Collection<Competence> findAllByCandidateId(Long candidateId) {
-        return competenceRepository.findAllByCandidateId(candidateId);
+        return competenceRepository.findByCandidates_Id(candidateId);
     }
 
     private boolean checkByExist(Long id) {

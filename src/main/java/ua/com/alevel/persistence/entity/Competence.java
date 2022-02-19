@@ -6,20 +6,23 @@ import java.util.Set;
 
 @Entity
 @Table(name = "competences")
-public class Competence extends BaseEntity{
+public class Competence extends BaseEntity {
 
     @Column(name = "competence_name", nullable = false)
     private String competenceName;
 
-    @ManyToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
-    @JoinTable(
-            name = "competences_candidates",
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST},
+            targetEntity = Candidate.class)
+    @JoinTable(name = "competences_candidates",
+            inverseJoinColumns = @JoinColumn(name = "candidate_id"),
             joinColumns = @JoinColumn(name = "competence_id"),
-            inverseJoinColumns = @JoinColumn(name = "candidate_id")
-    )
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<Candidate> candidates;
 
     private Integer level;

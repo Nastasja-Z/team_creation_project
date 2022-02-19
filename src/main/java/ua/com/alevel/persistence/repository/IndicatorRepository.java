@@ -10,7 +10,7 @@ import java.util.Collection;
 @Repository
 public interface IndicatorRepository extends BaseRepository<Indicator> {
 
-    Collection<Indicator> findByProject(Project project);
+    Collection<Indicator> findByProjects_Project(Project project);
     /*@Query("FROM Indicator p WHERE p.project.projectId = :projectId ORDER BY p.nameOfProject")
     Collection<Indicator> findAllByProjectId(@Param("id") Long projectId);*/
 }

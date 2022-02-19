@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    All Candidates
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>id</th>
+                            <th>name_first</th>
+                            <th>name_last</th>
+                            <th>employment</th> <!--add to details, not here-->
+                            <th>add competence</th> <!--add to details, not here, and with MODULE-->
+                            <th>details</th>
+                            <th>delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="candidate,iter : ${candidates}">
+                            <td th:text="${iter.count}"></td>
+                            <td th:text="${candidate.id}"></td>
+                            <td th:text="${candidate.nameOfCandidate}"></td>
+                            <td th:text="${candidate.surnameOfCandidate}"></td>
+                            <td th:text="${candidate.employment}"></td>
+                            <td>
+                                <a th:href="@{/candidates/newCompetence}" type="button" class="btn btn-default">Add Competence </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" th:href="@{'/candidates/getCandidateDetails/' + ${candidate.getId()}}">Details</a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/candidates/delete/' + ${candidate.getId()}}" type="button" class="btn btn-default">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
