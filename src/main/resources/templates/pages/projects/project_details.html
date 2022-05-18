@@ -36,9 +36,58 @@
                             <td th:text="${#dates.format(project.endOfProject, 'yyyy-MM-dd')}"></td>
                         </tr>
                         </tbody>
-                    </table><br>
+                    </table>
+                    <br>
                     <div class="card-header">
-                        Indicators
+                        Indicators<br>
+                        <div>
+                            <!--<a th:href="@{'/projects/newIndicator/' + ${project.getId()}}" type="button"
+                               class="btn btn-default">New Indicator</a>-->
+                            <button type="button" class="btn btn-warning"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                add new indicator
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                <span th:text="${'New Indicator'}"></span>
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" th:object="${indicator}"
+                                                  th:action="@{'/projects/' + ${project.getId()} + '/newIndicator'}">
+                                                <div class="mb-3">
+                                                    <label for="indicatorName">Enter indicator name</label>
+                                                    <input type="text" class="form-control" id="indicatorName"
+                                                           aria-describedby="name" placeholder="Enter indicator name"
+                                                           th:field="*{indicatorName}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="level">Level</label>
+                                                    <input type="number" step=any class="form-control" id="level"
+                                                           aria-describedby="level"
+                                                           placeholder="Enter level of indicator" name="level">
+                                                </div>
+                                                <br>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-sm table-hover">
@@ -47,6 +96,7 @@
                                 <th>#</th>
                                 <th>indicator</th>
                                 <th>level</th>
+                                <th>delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -54,9 +104,76 @@
                                 <td th:text="${iter.count}"></td>
                                 <td th:text="${indicator.indicatorName}"></td>
                                 <td th:text="${indicator.level}"></td>
+                                <td>
+                                    <a th:href="@{'/projects/' + ${project.getId()} + '/deleteIndicator/' + ${indicator.getId()}}"
+                                       type="button" class="btn btn-info">Delete
+                                    </a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div>
+                        <a th:href="@{'/projects/ready/' + ${project.id}}"
+                           type="button" class="btn btn-info">Query to create a team (DOES NOT WORK YET)
+                        </a>
+
+                        <div>
+                            <table>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Users</th>
+                                </tr>
+                                <tr th:each="user,iter : ${users}">
+                                    <td th:text="${iter.count}"></td>
+                                    <td th:text="${user.username}"></td>
+                                   <!--todo: add a role-->
+                                </tr>
+                            </table>
+
+                           <!-- <button type="button" class="btn btn-warning"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                Please, choose HR-Manager which should create a team for your project.
+                            </button>
+                            <div class="modal fade" id="exampleModal1" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel1">
+                                                <span th:text="${'Choose HR'}"></span>
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" th:object="${user}"
+                                                  th:action="@{'/projects/' + ${project.getId()} + '/addToUser/' +${user.getId()}}">
+                                                <div class="mb-3">
+                                                    &lt;!&ndash;&ndash;&gt;
+                                                </div>
+                                                <br>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+
+                        </div>
+
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>

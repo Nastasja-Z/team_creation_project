@@ -35,6 +35,23 @@ public class User extends BaseEntity {
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<Project> projects;
 
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    private Boolean enable;
+
+    public User(){
+        this.enable=true;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -75,20 +92,25 @@ public class User extends BaseEntity {
         this.projects = projects;
     }
 
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         User user = (User) o;
-        return Objects.equals(username, user.username)
-                && Objects.equals(password, user.password)
-                && Objects.equals(roles, user.roles)
-                && Objects.equals(projects, user.projects);
+        return Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(enabled, user.enabled) && Objects.equals(roles, user.roles) && Objects.equals(projects, user.projects) && roleType == user.roleType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), username, password, roles, projects);
+        return Objects.hash(super.hashCode(), username, password, enabled, roles, projects, roleType);
     }
 }

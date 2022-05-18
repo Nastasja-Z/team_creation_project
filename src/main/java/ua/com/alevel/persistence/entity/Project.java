@@ -16,10 +16,10 @@ public class Project extends BaseEntity{
     @Column(name = "project_name")
     private String nameOfProject;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<IndicatorProject> indicators;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private BigDecimal budget;
 
     @Column(name = "start_project")
@@ -43,6 +43,18 @@ public class Project extends BaseEntity{
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<User> users;
+
+    @Column(name = "willingness")
+    //@Value("false")
+    private Boolean willingness;
+
+    public Boolean getWillingness() {
+        return willingness;
+    }
+
+    public void setWillingness(Boolean willingness) {
+        this.willingness = willingness;
+    }
 
     public String getNameOfProject() {
         return nameOfProject;
@@ -98,11 +110,11 @@ public class Project extends BaseEntity{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Project project = (Project) o;
-        return Objects.equals(nameOfProject, project.nameOfProject) && Objects.equals(indicators, project.indicators) && Objects.equals(budget, project.budget) && Objects.equals(startOfProject, project.startOfProject) && Objects.equals(endOfProject, project.endOfProject) && Objects.equals(users, project.users);
+        return Objects.equals(nameOfProject, project.nameOfProject) && Objects.equals(indicators, project.indicators) && Objects.equals(budget, project.budget) && Objects.equals(startOfProject, project.startOfProject) && Objects.equals(endOfProject, project.endOfProject) && Objects.equals(users, project.users) && Objects.equals(willingness, project.willingness);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), nameOfProject, indicators, budget, startOfProject, endOfProject, users);
+        return Objects.hash(super.hashCode(), nameOfProject, indicators, budget, startOfProject, endOfProject, users, willingness);
     }
 }

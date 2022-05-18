@@ -19,4 +19,10 @@ public interface IndicatorProjectRepository extends BaseRepository<IndicatorProj
     @Transactional
     @Query("delete from IndicatorProject i where i.project.id = :id")
     void deleteByProject(@Param("id") Long id);
+
+
+    @Modifying
+    @Transactional
+    @Query("delete from IndicatorProject i where i.project.id = :projectId and i.indicator.id = :indicatorId")
+    void deleteByIndicatorAndProjectId(@Param("projectId") Long projectId, @Param("indicatorId") Long indicatorId);
 }

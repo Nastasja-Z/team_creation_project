@@ -26,7 +26,7 @@ public class IndicatorProjectFacadeImpl implements IndicatorProjectFacade {
 
     @Override
     public void create(IndicatorProject indicatorProject) {
-
+        indicatorProjectService.create(indicatorProject);
     }
 
     @Override
@@ -60,5 +60,10 @@ public class IndicatorProjectFacadeImpl implements IndicatorProjectFacade {
     @Override
     public void deleteByProjectId(Long id) {
         indicatorProjectService.deleteAllByProject(id);
+    }
+
+    @Override
+    public void deleteByIndicatorAndProjectId(Long projectId, Long indicatorId) {
+        indicatorProjectService.deleteByIndicatorAndProjectId(projectId, indicatorId);
     }
 }

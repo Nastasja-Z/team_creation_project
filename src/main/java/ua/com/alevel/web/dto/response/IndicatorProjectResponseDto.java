@@ -11,7 +11,8 @@ public class IndicatorProjectResponseDto extends ResponseDto {
     public IndicatorProjectResponseDto(
             Indicator indicator,
             IndicatorProject indicatorProject) {
-        super(indicatorProject.getProject().getId());
+        //get id from indicator!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        super(indicatorProject.getIndicator().getId());
         this.indicatorName = indicator.getIndicatorName();
         this.level = indicatorProject.getLevel();
     }

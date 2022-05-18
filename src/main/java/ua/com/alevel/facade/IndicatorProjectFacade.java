@@ -10,4 +10,6 @@ public interface IndicatorProjectFacade extends BaseFacade<IndicatorProjectRespo
     List<IndicatorProjectResponseDto> findAllByProjectId(Long id);
 
     void deleteByProjectId(Long id);
+
+    void deleteByIndicatorAndProjectId(Long projectId, Long indicatorId);
 }

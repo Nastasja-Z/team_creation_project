@@ -13,7 +13,7 @@ public class Indicator extends BaseEntity {
     @Column(name = "indicator_name")
     private String indicatorName;
 
-    @OneToMany(mappedBy = "indicator")
+    @OneToMany(mappedBy = "indicator", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<IndicatorProject> projects;
 
     public String getIndicatorName() {

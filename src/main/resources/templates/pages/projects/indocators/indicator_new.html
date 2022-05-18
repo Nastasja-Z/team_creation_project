@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New Indicator</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <span th:text="${'New Indicator'}"></span>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:object="${reference}" th:action="@{'/projects/newIndicator/' + ${project.getId()}}">
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label for="indicatorName">Indicator name</label>
+                                <input type="text" class="form-control" id="indicatorName" aria-describedby="name" placeholder="Enter indicator name"  th:field="*{indicatorName}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="level">Level</label>
+                            <input type="number"  step=any  class="form-control" id="level" aria-describedby="level" placeholder="Enter level of indicator" th:field="*{level}">
+                        </div>
+                       <br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

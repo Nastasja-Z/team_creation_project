@@ -41,6 +41,9 @@ values ((select id from projects where project_name = 'test1'),(select id from i
         ((select id from projects where project_name = 'test1'),(select id from indicators where indicator_name = 'test2'), 2),
         ((select id from projects where project_name = 'test1'),(select id from indicators where indicator_name = 'test3'), 4),
         ((select id from projects where project_name = 'test1'),(select id from indicators where indicator_name = 'test4'), 4),
+        ((select id from projects where project_name = 'test3'),(select id from indicators where indicator_name = 'test2'), 2),
+        ((select id from projects where project_name = 'test3'),(select id from indicators where indicator_name = 'test3'), 3),
+        ((select id from projects where project_name = 'test3'),(select id from indicators where indicator_name = 'test4'), 4),
         ((select id from projects where project_name = 'test2'),(select id from indicators where indicator_name = 'test5'), 5);
 
 insert into candidates(name_of_candidate, surname_of_candidate, salary_pro_hour, employment)

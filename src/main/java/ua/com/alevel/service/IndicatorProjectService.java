@@ -7,4 +7,6 @@ public interface IndicatorProjectService extends BaseService<IndicatorProject> {
     IndicatorProject findByProjectAndIndicator(Long projectId, Long indicatorId);
 
     void deleteAllByProject(Long id);
+
+    void deleteByIndicatorAndProjectId(Long projectId, Long indicatorId);
 }

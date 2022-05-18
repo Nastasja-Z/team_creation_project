@@ -8,7 +8,6 @@ import ua.com.alevel.persistence.repository.ProjectRepository;
 import ua.com.alevel.service.IndicatorProjectService;
 
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class IndicatorProjectServiceImpl implements IndicatorProjectService {
@@ -25,7 +24,12 @@ public class IndicatorProjectServiceImpl implements IndicatorProjectService {
 
     @Override
     public void create(IndicatorProject entity) {
-
+        indicatorProjectRepository.save(entity);
+        /*if(entity.getLevel()<=5){
+        } else {
+            throw new IndexOutOfBoundsException("level is higher than provided");
+            //exception
+        }*/
     }
 
     @Override
@@ -64,5 +68,10 @@ public class IndicatorProjectServiceImpl implements IndicatorProjectService {
     @Override
     public void deleteAllByProject(Long id) {
         indicatorProjectRepository.deleteByProject(id);
+    }
+
+    @Override
+    public void deleteByIndicatorAndProjectId(Long projectId, Long indicatorId) {
+        indicatorProjectRepository.deleteByIndicatorAndProjectId(projectId, indicatorId);
     }
 }

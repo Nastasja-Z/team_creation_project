@@ -1,5 +1,7 @@
 package ua.com.alevel.persistence.entity.references;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.Indicator;
 import ua.com.alevel.persistence.entity.Project;
@@ -15,10 +17,12 @@ import java.util.Objects;
 public class IndicatorProject extends BaseEntity {
 
     @ManyToOne
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "indicator_id")
     Indicator indicator;
 
     @ManyToOne
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "project_id")
     Project project;
 

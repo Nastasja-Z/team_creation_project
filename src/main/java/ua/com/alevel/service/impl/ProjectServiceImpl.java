@@ -46,6 +46,12 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findAll();
     }
 
+    @Override
+    public void setOfTheWillingnessToCreation(Long projectId) {
+        //add check on
+        projectRepository.setOfReadyToCreateTheTeam(projectId);
+    }
+
     private boolean checkByExist(Long id) {
         if (!projectRepository.existsById(id)) {
             try {
