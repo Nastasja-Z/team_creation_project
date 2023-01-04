@@ -5,18 +5,16 @@ import ua.com.alevel.persistence.entity.references.IndicatorProject;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "projects")
-public class Project extends BaseEntity{
+public class Project extends BaseEntity {
 
     @Column(name = "project_name")
     private String nameOfProject;
 
-    @OneToMany(mappedBy = "project",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<IndicatorProject> indicators;
 
     //@Column(nullable = false)
@@ -29,6 +27,11 @@ public class Project extends BaseEntity{
     @Column(name = "end_project") // nullable??
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endOfProject;    // validate!!!
+
+    private Integer laboriousness;
+
+    @Column(name = "length")
+    private Integer lengthInWeeks;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -47,6 +50,20 @@ public class Project extends BaseEntity{
     @Column(name = "willingness")
     //@Value("false")
     private Boolean willingness;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "projects_candidates",
+            joinColumns = {@JoinColumn(name = "project_id")},
+            inverseJoinColumns = {@JoinColumn(name = "candidate_id")})
+    private List<Candidate> candidates = new ArrayList<>();
+
+    public List<Candidate> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(List<Candidate> candidates) {
+        this.candidates = candidates;
+    }
 
     public Boolean getWillingness() {
         return willingness;
@@ -102,6 +119,22 @@ public class Project extends BaseEntity{
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Integer getLaboriousness() {
+        return laboriousness;
+    }
+
+    public void setLaboriousness(Integer laboriousness) {
+        this.laboriousness = laboriousness;
+    }
+
+    public Integer getLengthInWeeks() {
+        return lengthInWeeks;
+    }
+
+    public void setLengthInWeeks(Integer lengthInWeeks) {
+        this.lengthInWeeks = lengthInWeeks;
     }
 
     @Override

@@ -41,6 +41,61 @@
                     </table><br>
                     <div class="card-header">
                         Competences
+
+                        <div>
+                            <!--<a th:href="@{'/projects/newIndicator/' + ${project.getId()}}" type="button"
+                               class="btn btn-default">New Indicator</a>-->
+                            <button type="button" class="btn btn-warning"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                add new competence
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                <span th:text="${'New Competence'}"></span>
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" th:object="${competence}"
+                                                  th:action="@{'/candidates/' + ${candidate.getId()} + '/newCompetence'}">
+                                                <div class="mb-3">
+                                                    <label for="competenceName">Enter competence name</label>
+                                                    <select class="form-control" id="competenceName" th:field="*{competenceName}">
+                                                        <option value="0">select competence name</option>
+                                                        <option  th:each="indicator : ${indicators}" th:value="${indicator.getIndicatorName()}" th:text="${indicator.getIndicatorName()}"></option>
+                                                    </select>
+
+
+                                                    <!--<input type="text" class="form-control" id="competenceName"
+                                                           aria-describedby="name" placeholder="Enter competence name"
+                                                           th:field="*{competenceName}">-->
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="level">Level</label>
+                                                    <input type="number" step=any class="form-control" id="level"
+                                                           aria-describedby="level"
+                                                           placeholder="Enter level of competence" name="level">
+                                                </div>
+                                                <br>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-sm table-hover">

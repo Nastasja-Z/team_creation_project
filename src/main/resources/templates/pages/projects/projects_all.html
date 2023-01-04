@@ -24,8 +24,8 @@
                             <th>id</th>
                             <th>name of project</th>
                             <th>budget</th>
-                            <th>start</th> <!-- TODO: add to details, not here-->
-                            <th>end</th> <!--TODO: add to details, not here-->
+                            <th>laboriousness</th>
+<!--                            <th>end</th> &lt;!&ndash;TODO: add to details, not here&ndash;&gt;-->
                             <th>details</th>
                             <th>delete</th>
                         </tr>
@@ -36,8 +36,8 @@
                             <td th:text="${project.id}"></td>
                             <td th:text="${project.nameOfProject}"></td>
                             <td th:text="${project.budget}"></td>
-                            <td th:text="${#dates.format(project.startOfProject, 'yyyy-MM-dd')}"></td>
-                            <td th:text="${#dates.format(project.endOfProject, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${project.laboriousness}"></td>
+<!--                            <td th:text="${#dates.format(project.endOfProject, 'yyyy-MM-dd')}"></td>-->
                             <td>
                                 <a class="btn btn-primary" th:href="@{'/projects/getProjectDetails/' + ${project.getId()}}">Details</a>
                             </td>

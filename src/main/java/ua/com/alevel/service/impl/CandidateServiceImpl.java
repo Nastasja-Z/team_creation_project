@@ -3,14 +3,13 @@ package ua.com.alevel.service.impl;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.exception.EntityNonExistsException;
 import ua.com.alevel.persistence.entity.Candidate;
-import ua.com.alevel.persistence.entity.Competence;
+import ua.com.alevel.persistence.entity.Project;
 import ua.com.alevel.persistence.repository.CandidateRepository;
 import ua.com.alevel.persistence.repository.CompetenceRepository;
 import ua.com.alevel.service.CandidateService;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
 public class CandidateServiceImpl implements CandidateService {
@@ -68,5 +67,10 @@ public class CandidateServiceImpl implements CandidateService {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<Candidate> findAllByProject(Long projectId) {
+        return candidateRepository.findByProjects_Id(projectId);
     }
 }

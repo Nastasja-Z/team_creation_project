@@ -5,7 +5,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>ALL CANDIDATES</title>
+    <title>ALL CANDIDATES BY PROJECT</title>
 </head>
 <body>
 
@@ -14,34 +14,31 @@
         <div class="col-12">
             <div class="card mb-2 mt-2">
                 <div class="card-header">
-                    All Candidates<br><br>
+                    All Candidates by project
                 </div>
-                <div>
-                    <a class="btn btn-primary"
-                       th:href="@{'/candidates/new/' + ${project.getId()}}">New candidate to DB</a>
-                </div><br><br>
                 <div class="card-body">
-                    <form action="#" th:action="@{'/projects/' + ${project.getId()} + '/addCandidates'}" method="post" th:object="${project}">
-                        <table class="table table-sm table-hover">
+                    <table class="table table-sm table-hover">
                         <thead>
                         <tr>
                             <th>#</th>
                             <th>id</th>
                             <th>name_first</th>
                             <th>name_last</th>
-                            <th>employment</th>
+                            <th>employment</th> <!-- TODO: add to details, not here-->
+                            <!--                            <th>add competence</th> &lt;!&ndash; TODO: add to details, not here, and with MODULE&ndash;&gt;-->
                             <th>details</th>
                             <th>delete (rmv this btn)</th>
                             <th>Add to team</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="candidate,iter : ${candidates}">
+                        <tr th:each="candidate,iter : ${filteredCandidates}">
                             <td th:text="${iter.count}"></td>
                             <td th:text="${candidate.id}"></td>
                             <td th:text="${candidate.nameOfCandidate}"></td>
                             <td th:text="${candidate.surnameOfCandidate}"></td>
                             <td th:text="${candidate.employment}"></td>
+
                             <td>
                                 <a class="btn btn-primary"
                                    th:href="@{'/candidates/getCandidateDetails/' + ${candidate.getId()}}">Details</a>
@@ -56,11 +53,49 @@
                         </tr>
                         </tbody>
                     </table>
-                        <div>
-                            <button type="submit" class="btn btn-primary">Add to algorithm</button>
-                        </div><br><br>
-                    </form>
                 </div>
+
+                <div>
+                    <a th:href="@{'/candidates/result/' + ${project.id}}" type="button"
+                       class="btn btn-default">See the result</a>
+                </div>
+                <div>
+                    <table>
+                        <tr>
+                            <th>
+                                Indicator
+                            </th>
+                            <th>
+                                Level
+                            </th>
+
+                        </tr>
+                        <tr th:each="a : ${algorithm}">
+                            <td th:text="${a.key}"></td>
+                            <td th:text="${a.value}"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+
+                    <table>
+                        <tr>
+                            <th>
+                                Competence
+                            </th>
+                            <th>
+                                Level
+                            </th>
+
+                        </tr>
+                        <tr th:each="a : ${algorithmed}">
+                            <td th:text="${a}"></td>
+                        </tr>
+                    </table>
+                </div>
+
+
             </div>
         </div>
     </div>

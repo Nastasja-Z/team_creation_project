@@ -17,7 +17,7 @@
                     Create Candidate
                 </div>
                 <div class="card-body">
-                    <form action="#" th:action="@{/candidates/new}" method="post" th:object="${candidate}">
+                    <form action="#" th:action="@{'/candidates/new/' + ${project.id}}" method="post" th:object="${candidate}">
                         <div class="form-group">
                             <label for="name">Name of candidate</label>
                             <input type="text" class="form-control" id="name" placeholder="Please enter name" th:field="*{nameOfCandidate}">

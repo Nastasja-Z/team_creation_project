@@ -23,8 +23,9 @@
                             <th>id</th>
                             <th>name of project</th>
                             <th>budget</th>
-                            <th>start</th>
-                            <th>end</th>
+                            <th>laboriousness</th>
+                            <th>length (count of weeks)</th>
+<!--                            <th>end</th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -32,8 +33,10 @@
                             <td th:text="${project.id}"></td>
                             <td th:text="${project.nameOfProject}"></td>
                             <td th:text="${project.budget}"></td>
-                            <td th:text="${#dates.format(project.startOfProject, 'yyyy-MM-dd')}"></td>
-                            <td th:text="${#dates.format(project.endOfProject, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${project.laboriousness}"></td>
+                            <td th:text="${project.lengthInWeeks}"></td>
+<!--                            <td th:text="${#dates.format(project.startOfProject, 'yyyy-MM-dd')}"></td>-->
+<!--                            <td th:text="${#dates.format(project.endOfProject, 'yyyy-MM-dd')}"></td>-->
                         </tr>
                         </tbody>
                     </table>
@@ -114,10 +117,9 @@
                         </table>
                     </div>
                     <div>
-                        <a th:href="@{'/projects/ready/' + ${project.id}}"
-                           type="button" class="btn btn-info">Query to create a team (DOES NOT WORK YET)
+                        <a th:href="@{'/candidates/' + ${project.id}}"
+                           type="button" class="btn btn-info">Query to create a team
                         </a>
-
                         <div>
                             <table>
                                 <tr>
@@ -130,6 +132,7 @@
                                    <!--todo: add a role-->
                                 </tr>
                             </table>
+
 
                            <!-- <button type="button" class="btn btn-warning"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal1">
@@ -166,14 +169,6 @@
                             </div>-->
 
                         </div>
-
-
-
-
-
-
-
-
                     </div>
                 </div>
             </div>

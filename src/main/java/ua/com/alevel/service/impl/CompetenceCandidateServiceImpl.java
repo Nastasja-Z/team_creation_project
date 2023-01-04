@@ -14,9 +14,9 @@ import java.util.Collection;
 @Service
 public class CompetenceCandidateServiceImpl implements CompetenceCandidateService {
 
-    private final CompetenceRepository competenceRepository ;
-    private final CandidateRepository candidateRepository ;
-    private final CompetenceCandidateRepository competenceCandidateRepository ;
+    private final CompetenceRepository competenceRepository;
+    private final CandidateRepository candidateRepository;
+    private final CompetenceCandidateRepository competenceCandidateRepository;
 
     public CompetenceCandidateServiceImpl(
             CompetenceRepository competenceRepository,
@@ -30,7 +30,7 @@ public class CompetenceCandidateServiceImpl implements CompetenceCandidateServic
 
     @Override
     public void create(CompetenceCandidate entity) {
-
+        competenceCandidateRepository.save(entity);
     }
 
     @Override

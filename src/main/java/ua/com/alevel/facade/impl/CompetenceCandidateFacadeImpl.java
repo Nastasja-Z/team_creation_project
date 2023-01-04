@@ -30,7 +30,7 @@ public class CompetenceCandidateFacadeImpl implements CompetenceCandidateFacade 
 
     @Override
     public void create(CompetenceCandidate competenceCandidate) {
-
+        competenceCandidateService.create(competenceCandidate);
     }
 
     @Override

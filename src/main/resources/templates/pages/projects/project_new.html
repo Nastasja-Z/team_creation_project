@@ -38,6 +38,14 @@
                             <label for="end"> End of the project</label>
                             <input type="date" id="end" class="form-control" th:field="*{endOfProject}">
                         </div>
+                        <div class="form-group">
+                            <label for="laboriousness"> Laboriousness </label>
+                            <input type="number" id="laboriousness" class="form-control" th:field="*{laboriousness}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lengthInWeeks"> Length (count of weeks)</label>
+                            <input type="number" id="lengthInWeeks" class="form-control" th:field="*{lengthInWeeks}">
+                        </div>
                         <button type="submit" class="btn btn-primary">Create</button>
                     </form>
                 </div>

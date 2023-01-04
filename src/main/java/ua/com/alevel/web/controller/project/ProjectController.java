@@ -2,11 +2,14 @@ package ua.com.alevel.web.controller.project;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.com.alevel.facade.IndicatorProjectFacade;
+import ua.com.alevel.persistence.entity.Candidate;
 import ua.com.alevel.persistence.entity.Indicator;
 import ua.com.alevel.persistence.entity.Project;
 import ua.com.alevel.persistence.entity.references.IndicatorProject;
+import ua.com.alevel.service.CandidateService;
 import ua.com.alevel.service.IndicatorService;
 import ua.com.alevel.service.ProjectService;
 import ua.com.alevel.service.UserService;
@@ -20,13 +23,19 @@ public class ProjectController {
     private final ProjectService projectService;
     private final IndicatorService indicatorService;
     private final UserService userService;
+    private final CandidateService candidateService;
 
     private final IndicatorProjectFacade indicatorProjectFacade;
 
-    public ProjectController(ProjectService projectService, IndicatorService indicatorService, UserService userService, IndicatorProjectFacade indicatorProjectFacade) {
+    public ProjectController(ProjectService projectService,
+                             IndicatorService indicatorService,
+                             UserService userService,
+                             CandidateService candidateService,
+                             IndicatorProjectFacade indicatorProjectFacade) {
         this.projectService = projectService;
         this.indicatorService = indicatorService;
         this.userService = userService;
+        this.candidateService = candidateService;
         this.indicatorProjectFacade = indicatorProjectFacade;
     }
 
@@ -42,7 +51,6 @@ public class ProjectController {
         model.addAttribute("project", projectService.findById(projectId));
         model.addAttribute("indicators", indicatorProjectFacade.findAllByProjectId(projectId));
         model.addAttribute("indicator", new Indicator());
-        // TODO: ADD PM & HR, die darauf verantwortlich sind
         model.addAttribute("users", userService.findByProjectId(projectId));
         return "pages/projects/project_details";
     }
@@ -94,22 +102,15 @@ public class ProjectController {
         return "redirect:/projects";
     }
 
+    //delete this function or remake to the result after algorithm
     @RequestMapping(value = "/ready/{projectId}", method = RequestMethod.GET)
     public String setOfTheWillingness(@PathVariable Long projectId) {
-        //TODO: add proj to user
-        //TODO:somewhere check if user is HR
-
-        //TODO: check it after the print of the list of the right users for the projects
-
-       projectService.setOfTheWillingnessToCreation(projectService.findById(projectId).getId());
-
-        //TODO: send a msg to the PM that HR has received a query to create the team (maybe with alert)
+        projectService.setOfTheWillingnessToCreation(projectService.findById(projectId).getId());
         return "redirect:/projects/getProjectDetails/{projectId}";
     }
 
     // INDICATORS
 
-    //@GetMapping("/{projectId}/deleteIndicator/{indicatorId}")
     @RequestMapping(value = "/{projectId}/deleteIndicator/{indicatorId}", method = RequestMethod.GET)
     public String deleteIndicator(@PathVariable("projectId") Long projectId,
                                   @PathVariable("indicatorId") Long indicatorId
@@ -120,7 +121,7 @@ public class ProjectController {
         return "redirect:/projects/getProjectDetails/{projectId}";
     }
 
-    @PostMapping("/{projectId}/newIndicator") //add to project by id
+    @PostMapping("/{projectId}/newIndicator")
     public String createIndicator(
             @ModelAttribute("indicator") Indicator indicator,
             @ModelAttribute("level") Integer level,
@@ -140,5 +141,29 @@ public class ProjectController {
     public String updateIndicator(@ModelAttribute("indicator") Indicator indicator) {
         indicatorService.update(indicator);
         return "redirect:/projects";
+    }
+
+    //CHECK THIS FUNCTION. MAYBE ADD GET METHOD
+
+    @RequestMapping(value = "{projectId}/addCandidates", method = RequestMethod.POST)
+    public String addCandidatesList(
+            @ModelAttribute("project") Project project,
+            @RequestParam(value = "chosen", required = false) long[] cers,
+            BindingResult bindingResult,
+            Model model,
+            @PathVariable("projectId") Long projectId) {
+        project = projectService.findById(projectId);
+        if (cers != null) {
+            Candidate candidate = null;
+            for (int i = 0; i < cers.length; i++) {
+                candidate = candidateService.findById(cers[i]);
+                project.getCandidates().add(candidate);
+            }
+            projectService.update(project);
+            for (int i = 0; i < project.getCandidates().size(); i++) {
+                System.out.println(project.getCandidates().get(i).getNameOfCandidate());
+            }
+        }
+        return "redirect:/candidates/chosen/{projectId}";
     }
 }

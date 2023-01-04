@@ -4,6 +4,8 @@ import ua.com.alevel.persistence.entity.references.CompetenceCandidate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,6 +27,17 @@ public class Candidate extends BaseEntity {
                     CascadeType.PERSIST}
     )
     private Set<CompetenceCandidate> competences;
+
+    @ManyToMany(mappedBy = "candidates")
+    private List<Project> projects=new ArrayList<>();
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
 
     public String getNameOfCandidate() {
         return nameOfCandidate;

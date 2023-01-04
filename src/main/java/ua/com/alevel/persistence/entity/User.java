@@ -40,8 +40,8 @@ public class User extends BaseEntity {
 
     private Boolean enable;
 
-    public User(){
-        this.enable=true;
+    public User() {
+        this.enable = true;
     }
 
     public Boolean getEnable() {

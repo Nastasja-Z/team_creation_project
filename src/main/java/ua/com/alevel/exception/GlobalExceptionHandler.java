@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.ConstraintViolationException;
+//import javax.validation.ConstraintViolationException;
 
 //@ControllerAdvice
 public class GlobalExceptionHandler {
@@ -22,10 +22,10 @@ public class GlobalExceptionHandler {
         return generateModelAndView(exception.getMessage());
     }
 
-    @ExceptionHandler(value = {ConstraintViolationException.class})
+    /*@ExceptionHandler(value = {ConstraintViolationException.class})
     public ModelAndView constraintViolationErrorHandler(ConstraintViolationException exception) {
         return generateModelAndView(exception.getMessage());
-    }
+    }*/
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public ModelAndView methodArgumentNotValidErrorHandler(MethodArgumentNotValidException exception) {

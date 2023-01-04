@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Resulted page</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    IT WOULD BE THE MOST PERFECT TEAM OF EXISTING MEMBERS<br><br>
+                    For the project <span th:text="${project.nameOfProject}"></span><br><br>
+                </div>
+
+                <div class="card-body">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>id</th>
+                                <th>name_first</th>
+                                <th>name_last</th>
+                                <th>details</th>
+                                <th>competences</th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="candidate,iter : ${candidates}">
+                                <td th:text="${iter.count}"></td>
+                                <td th:text="${candidate.id}"></td>
+                                <td th:text="${candidate.nameOfCandidate}"></td>
+                                <td th:text="${candidate.surnameOfCandidate}"></td>
+                                <td>
+                                    <a class="btn btn-primary"
+                                       th:href="@{'/candidates/getCandidateDetails/' + ${candidate.getId()}}">Details</a>
+                                </td>
+                                <td th:text="${competences.get(iter.count-1)}"></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
